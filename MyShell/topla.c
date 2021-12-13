@@ -28,7 +28,7 @@ int strtoint( char* charnums)
  return number;
 }
 
-int main(int argc, char *argv[], char**envp2)
+int main(int argc, char *argv[])
 {  
    // 'islem topla x y'   için 'x+y' sayilarini toplayıp döndürüyor.
    int x=strtoint(argv[2]);

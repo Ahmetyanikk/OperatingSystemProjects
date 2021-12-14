@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 {  
 
      int sonuc=0;
-
+        int t;
       int f= fork();
       if(f==0)
       {

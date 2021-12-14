@@ -28,7 +28,7 @@ int strtoint( char* charnums)
  return number;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char**envp2)
 {  
    // 'islem cikar x y'   için sayilari 'x-y' şeklinde çıkartıp döndürüyor döndürüyor.
    int x=strtoint(argv[2]);

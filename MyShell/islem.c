@@ -28,7 +28,7 @@ int strtoint( char* charnums)
  return number;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char**envp2)
 {  
 
      int sonuc=0;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
       //Alınan parametreyi kontrol ediyorum
       if( strcmp(argv[1],"topla")==0|strcmp(argv[1],"cikar")==0){
-       t = execve(argv[1],argv);
+       t = execve(argv[1],argv,envp2);
        perror("exec: execve failed\n");	
                  }
       else{

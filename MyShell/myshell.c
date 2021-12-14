@@ -9,6 +9,8 @@ char input[250];
 char temp[250];
 int control=0;
 int cokMuKontrol=0;
+char**envp2;
+
 int parametreHesapla(char input[]){
     strcpy(temp,input);
     int girisAdet=0;
@@ -19,41 +21,6 @@ int parametreHesapla(char input[]){
     }
     return girisAdet;
 }
-int anaProgram(char input[]){
-    strcpy(temp,input);
-    int komut=0;
-    char * parca=strtok(temp," ");
-    int i=0;
-  while(i<4){
-   if(strcmp(parca,komutlarim[i])==0){
-       control++;
-       komut=i;
-       break;
-   }
-   i=i+1;
-
-
-  }
-  if(control!=0){
-          // komut var ise komutun id'sine göre fonksiyon çağırıyoruz.
-      if(komut==0){
-      tekrarCalis(input);
-      }else if(komut==1){
-      islemCalis(input);
-      }else if(komut==2){
-      bashCalis(input);
-      }else if(komut==3){
-      catCalis(input);
-      }
-      else if(komut==4){
-      clearCalis();}
-
-
-  }else{
-  printf("Komut Bulunamadi!!!\n");
-  }
-  return 0;
-  }
 int tekrarCalis(char input[]){
     int girisAdet=parametreHesapla(input);
     if(girisAdet==3){
@@ -71,7 +38,7 @@ int tekrarCalis(char input[]){
         if(f==0)
              {
                 // printf("Ana program: Exec calisti\n");
-                 t = execve("tekrar",parametreler);
+                 t = execve("tekrar",parametreler,envp2);
                  perror("exec: execve failed\n");
              }
              else
@@ -104,7 +71,7 @@ int islemCalis(char input[]){
         f= fork();
               if(f==0)
               {
-                  t = execve("islem",parametreler);
+                  t = execve("islem",parametreler,envp2);
                   perror("exec: execve failed\n");
               }
               else
@@ -117,6 +84,7 @@ int islemCalis(char input[]){
     }
     return 0;
 }
+
 int bashCalis(char input[]){
     char input2[250];
 
@@ -199,7 +167,47 @@ parametreler[1]=NULL;
       return 0;
 }
 
-int main(){
+int anaProgram(char input[]){
+    strcpy(temp,input);
+    int komut=0;
+    char * parca=strtok(temp," ");
+    int i=0;
+  while(i<4){
+   if(strcmp(parca,komutlarim[i])==0){
+       control++;
+       komut=i;
+       break;
+   }
+   i=i+1;
+
+
+  }
+  if(control!=0){
+          // komut var ise komutun id'sine göre fonksiyon çağırıyoruz.
+      if(komut==0){
+      tekrarCalis(input);
+      }else if(komut==1){
+      islemCalis(input);
+      }else if(komut==2){
+      bashCalis(input);
+      }else if(komut==3){
+      catCalis(input);
+      }
+      else if(komut==4){
+      clearCalis();}
+
+
+  }else{
+  printf("Komut Bulunamadi!!!\n");
+  }
+  return 0;
+  }
+
+
+
+
+int main(int argc, char *argv[],char ** envp){
+    envp2=envp;
 while(1){
 control=0;
 cokMuKontrol=0;
